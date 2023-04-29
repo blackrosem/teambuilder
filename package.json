@@ -1,0 +1,28 @@
+{
+  "name": "teambuilder",
+  "version": "1.0.0",
+  "description": "Building a team",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackrosem/teambuilder.git"
+  },
+  "author": "Rose Black",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackrosem/teambuilder/issues"
+  },
+  "homepage": "https://github.com/blackrosem/teambuilder#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.1.2"
+  }
+}

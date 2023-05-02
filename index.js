@@ -1,7 +1,12 @@
 const inquirer = require('inquirer');
-// const Manager = require('../lib/Manager');
-// const Engineer = require('../lib/Engineer');
-// const Intern = require('../lib/Intern');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Employee = require('./lib/Employee');
+const employees = [];
+const fs = require('fs');
+const createFile = require('./src/createFile');
+const populateSite = require('./src/populateSite');
 
 function init() {
     inquirer.prompt([{
@@ -16,31 +21,20 @@ function init() {
     },
     {
         type: 'input',
-        name: 'emailaddress',
+        name: 'email',
         message: 'Email: ',
     },
     {
         type: 'input',
-        name: 'officenumber',
+        name: 'oNumber',
         message: 'Office number',
     }
 ])
-.then(() => {
+.then((reply) => {
+    const manager = new Manager(reply);
+    employees.push(manager);
     makeChoice();
-})
-// .then((reply) => {
-//     const manager = new Manager();
-//     manager.name = reply.name;
-//     manager.id = reply.id;
-//     manager.email = reply.emailaddress;
-//     manager.role = 'Manager';
-//     manager.oNumber = reply.officenumber;
-// });
-// console.log(manager.name);
-// console.log(manager.id);
-// console.log(manager.email);
-// console.log(manager.role);
-// console.log(manager.oNumber);
+});
 }
 
 function makeChoice() {
@@ -87,16 +81,20 @@ function addEngineer() {
     },
     {
         type: 'input',
-        name: 'emailaddress',
+        name: 'email',
         message: 'Email: ',
     },
     {
         type: 'input',
-        name: 'gusername',
+        name: 'github',
         message: 'Github username',
     }
 ])
-.then(init());
+.then((reply) => {
+    const engineer = new Engineer(reply);
+    employees.push(engineer);
+    makeChoice();
+});
 }
 
 function addIntern() {
@@ -112,7 +110,7 @@ function addIntern() {
     },
     {
         type: 'input',
-        name: 'emailaddress',
+        name: 'email',
         message: 'Email: ',
     },
     {
@@ -121,11 +119,17 @@ function addIntern() {
         message: 'Your school',
     }
 ])
-.then(init());
+.then((reply) => {
+    const intern = new Intern(reply);
+    employees.push(intern);
+    makeChoice();
+});
 }
 
 function createPage() {
-    console.log("Create page");
-}
+    console.log(employees);
+    const createdFile = populateSite(employees);
+    createFile(createdFile);     
+};
 
 init();
